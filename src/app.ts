@@ -1,6 +1,11 @@
-import express, { Application, Request, Response, NextFunction } from "express"; \
+import express, { Application, Request, Response, NextFunction } from "express";
 require("dotenv").config();
-import connectDB from './config/db'
+import config from "config";
+import log from "./logger";
+import connectDB from "./db/connect";
+
+const port = config.get("port") as number;
+const host = config.get("host") as string;
 
 const app: Application = express();
 
@@ -9,22 +14,12 @@ connectDB();
 
 // Init Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
     res.send("hello");
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-app.get("/", (req, res) => {
-    res.send("API Running");
-});
-
-// Define Routes
-app.use("/api/auth", require("./routes/api/auth"));
-app.use("/api/users", require("./routes/api/users"));
-app.use("/api/profile", require("./routes/api/profile"));
-app.use("/api/games", require("./routes/api/games"));
-app.use("/api/listings", require("./routes/api/listings"));
-app.use("/api/swaps", require("./routes/api/swaps"));
+app.listen(port, host, () =>
+    log.info(`Server listening at http://${host}:${port}`)
+);
