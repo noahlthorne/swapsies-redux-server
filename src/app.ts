@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express from "express";
 require("dotenv").config();
 import config from "config";
 import log from "./logger";
