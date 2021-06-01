@@ -5,6 +5,7 @@ import log from "./logger";
 import connectDB from "./db/connect";
 import routes from "./routes";
 import { deserializeUser } from "./middleware";
+import "./jobs/cronJobs";
 
 const port = config.get("port") as number;
 const host = config.get("host") as string;
