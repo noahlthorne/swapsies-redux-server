@@ -23,12 +23,10 @@ const GameSchema: Schema = new Schema(
         genres: [
             {
                 type: String,
-                required: true,
             },
         ],
         description: {
             type: String,
-            required: true,
         },
         coverImage: {
             type: String,
