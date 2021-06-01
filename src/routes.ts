@@ -42,7 +42,7 @@ export default function (app: Express) {
     // Create a game
     app.post(
         "/api/games",
-        [requiresUser, validateRequest(createGameSchema)],
+        validateRequest(createGameSchema),
         createGameHandler
     );
 
