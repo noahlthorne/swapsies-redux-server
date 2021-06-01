@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createGame, findGame } from "../services/game.service";
+import { createGame, findGame, getGames } from "../services/game.service";
 import log from "../logger";
 import { get } from "lodash";
 
@@ -11,6 +11,11 @@ export const createGameHandler = async (req: Request, res: Response) => {
         log.error(error);
         return res.status(409).send(error.message);
     }
+};
+
+export const getGamesHandler = async (req: Request, res: Response) => {
+    const games = await getGames();
+    return res.send(games);
 };
 
 export const getGameHandler = async (req: Request, res: Response) => {
