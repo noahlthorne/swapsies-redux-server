@@ -7,6 +7,7 @@ import {
 } from "./controllers/sessions.controller";
 import {
     createGameHandler,
+    getGamesHandler,
     getGameHandler,
 } from "./controllers/games.controller";
 import {
@@ -45,6 +46,9 @@ export default function (app: Express) {
         validateRequest(createGameSchema),
         createGameHandler
     );
+
+    // Get games
+    app.get("/api/games/", getGamesHandler);
 
     // Get a game
     app.get("/api/games/:gameId", getGameHandler);
