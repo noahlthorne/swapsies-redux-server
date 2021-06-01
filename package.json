@@ -14,8 +14,10 @@
     "license": "ISC",
     "dependencies": {
         "@types/lodash": "^4.14.170",
+        "axios": "^0.21.1",
         "bcrypt": "^5.0.1",
         "config": "^3.3.6",
+        "cron": "^1.8.2",
         "dayjs": "^1.10.5",
         "dotenv": "^9.0.2",
         "express": "^4.17.1",
@@ -31,6 +33,7 @@
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
         "@types/config": "^0.0.38",
+        "@types/cron": "^1.7.2",
         "@types/express": "^4.17.11",
         "@types/jsonwebtoken": "^8.5.1",
         "@types/node": "^15.3.0",
