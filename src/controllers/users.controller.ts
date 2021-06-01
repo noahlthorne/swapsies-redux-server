@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { omit } from "lodash";
 import { createUser } from "../services/user.service";
 import log from "../logger";
-import { check, validationResult } from "express-validator";
 
 export const createUserHandler = async (req: Request, res: Response) => {
     try {
