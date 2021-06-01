@@ -6,4 +6,7 @@ export default {
     accessTokenTtl: "3hr",
     refreshTokenTtl: "1y",
     privateKey: process.env.PRIVATE_KEY,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    igdbAuth: process.env.IGDB_AUTHORIZATION,
 };
