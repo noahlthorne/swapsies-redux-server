@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface GameDocument extends Document {
     title: string;
     gameConsole: string;
-    genre: string;
+    genres: string[];
     description: string;
     coverImage: string;
     rating: number;
@@ -20,10 +20,12 @@ const GameSchema: Schema = new Schema(
             type: String,
             required: true,
         },
-        genre: {
-            type: String,
-            required: true,
-        },
+        genres: [
+            {
+                type: String,
+                required: true,
+            },
+        ],
         description: {
             type: String,
             required: true,
@@ -40,6 +42,8 @@ const GameSchema: Schema = new Schema(
     },
     { timestamps: true }
 );
+
+GameSchema.index({ gameConsole: 1, title: 1 }, { unique: true });
 
 const Game = mongoose.model<GameDocument>("Game", GameSchema);
 
