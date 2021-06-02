@@ -1,4 +1,4 @@
-import { DocumentDefinition, FilterQuery } from "mongoose";
+import { DocumentDefinition, FilterQuery, QueryOptions } from "mongoose";
 import Game, { GameDocument } from "../models/game.model";
 
 export const createGame = async (input: DocumentDefinition<GameDocument>) => {
@@ -13,6 +13,9 @@ export const getGames = async () => {
     return Game.find({}).sort({ title: "desc" });
 };
 
-export const findGame = async (query: FilterQuery<GameDocument>) => {
-    return Game.find(query).lean();
+export const findGame = async (
+    query: FilterQuery<GameDocument>,
+    options: QueryOptions = { lean: true }
+) => {
+    return Game.findOne(query, {}, options);
 };
