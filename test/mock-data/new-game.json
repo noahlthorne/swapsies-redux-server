@@ -1,0 +1,9 @@
+{
+    "title": "Dark Souls",
+    "gameConsole": "Switch",
+    "description": "Good game",
+    "genres": ["scary", "action"],
+    "coverImage": "blahsdlab.jpg",
+    "rating": 92,
+    "releaseDate": "2014-03-29"
+}
