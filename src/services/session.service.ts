@@ -5,8 +5,6 @@ import { UserDocument } from "../models/user.model";
 import { findUser } from "./user.service";
 import Session, { SessionDocument } from "../models/session.model";
 import { sign, decode } from "../utils/jwt.utils";
-import { IsBooleanOptions } from "express-validator/src/options";
-import { SessionState } from "http2";
 
 export const createSession = async (userId: string, userAgent: string) => {
     const session = await Session.create({ user: userId, userAgent });
@@ -62,5 +60,6 @@ export const updateSession = async (
 };
 
 export const findSessions = async (query: FilterQuery<SessionDocument>) => {
+    console.log(query);
     return Session.find(query).lean();
 };
