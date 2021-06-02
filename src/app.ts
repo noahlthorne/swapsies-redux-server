@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 require("dotenv").config();
 import config from "config";
 import log from "./logger";
@@ -11,6 +12,11 @@ const port = config.get("port") as number;
 const host = config.get("host") as string;
 
 const app = express();
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+    })
+);
 app.use(deserializeUser);
 
 // Init Middleware
