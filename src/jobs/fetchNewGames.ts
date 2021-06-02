@@ -18,7 +18,6 @@ interface gameData {
 }
 
 const fetchNewGames = async () => {
-    console.log("fetching game data...");
     const headers = {
         "Client-ID": config.get("clientId") as string,
         // prettier-ignore
@@ -44,7 +43,11 @@ const fetchNewGames = async () => {
 const createGamesFromPlatforms = (game: gameData) => {
     game.platforms.forEach(async (platform) => {
         const gameObj = buildGame(game, platform.name);
-        await createGame(gameObj);
+        try {
+            await createGame(gameObj);
+        } catch (error) {
+            log.error(error.message);
+        }
     });
 };
 
