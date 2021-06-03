@@ -6,7 +6,7 @@ export interface ListingDocument extends Document {
     user: UserDocument["_id"];
     game: GameDocument["_id"];
     condition: String;
-    status: String;
+    status?: String;
 }
 
 const ListingSchema: Schema = new Schema(
