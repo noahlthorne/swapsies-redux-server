@@ -1,4 +1,4 @@
-import { Express, Request, Response, NextFunction } from "express";
+import { Express } from "express";
 import { createUserHandler } from "./controllers/users.controller";
 import {
     createUserSessionHandler,
@@ -6,15 +6,21 @@ import {
     getUserSessionsHandler,
 } from "./controllers/sessions.controller";
 import {
+    createListingHandler,
+    getGameListingsHandler,
+} from "./controllers/listings.controller";
+import {
     createGameHandler,
     getGamesHandler,
     getGameHandler,
 } from "./controllers/games.controller";
+
 import {
     createUserSchema,
     createUserSessionSchema,
 } from "./schemas/user.schema";
 import { createGameSchema } from "./schemas/game.schema";
+import { createListingSchema } from "./schemas/listing.schema";
 import { validateRequest, requiresUser } from "./middleware";
 
 export default function (app: Express) {
@@ -52,4 +58,15 @@ export default function (app: Express) {
 
     // Get a game
     app.get("/api/games/:gameId", getGameHandler);
+
+    // LISTINGS
+    // Create a listing
+    app.post(
+        "/api/games/:gameId/listings",
+        [requiresUser, validateRequest(createListingSchema)],
+        createListingHandler
+    );
+
+    // Get a games listings
+    app.get("/api/games/:gameId/listings", getGameListingsHandler);
 }
