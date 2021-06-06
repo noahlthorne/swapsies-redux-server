@@ -3,8 +3,8 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface GameDocument extends Document {
     title: string;
     gameConsole: string;
-    genres: string[];
-    description: string;
+    genres?: string[];
+    description?: string;
     coverImage: string;
     rating: number;
     releaseDate: Date;
