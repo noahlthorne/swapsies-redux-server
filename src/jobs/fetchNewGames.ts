@@ -44,7 +44,8 @@ const createGamesFromPlatforms = (game: gameData) => {
     game.platforms.forEach(async (platform) => {
         const gameObj = buildGame(game, platform.name);
         try {
-            await createGame(gameObj);
+            const newGame = await createGame(gameObj);
+            log.info(`Saved ${newGame.title} for ${newGame.gameConsole}`);
         } catch (error) {
             log.error(error.message);
         }
