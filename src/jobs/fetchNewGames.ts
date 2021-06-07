@@ -17,14 +17,13 @@ interface gameData {
     platforms: [{ id: number; name: string }];
 }
 
-const fetchNewGames = async () => {
+const fetchNewGames = async (offset: number = 0) => {
     const headers = {
         "Client-ID": config.get("clientId") as string,
         // prettier-ignore
         "Authorization": config.get("igdbAuth") as string,
     };
-    const queryString =
-        "fields id,name,platforms.name,summary,first_release_date,genres.name,aggregated_rating,cover.url; limit 50; where aggregated_rating > 90 & platforms = (48,49,130,6); sort first_release_date desc;";
+    const queryString = `fields id,name,platforms.name,summary,first_release_date,genres.name,aggregated_rating,cover.url; limit 50; offset ${offset}; where aggregated_rating > 90 & platforms = (48,49,130,6); sort first_release_date desc;`;
 
     try {
         const response = await axios.post(
@@ -32,9 +31,16 @@ const fetchNewGames = async () => {
             queryString,
             { headers: headers }
         );
-        response.data.forEach((game: gameData) => {
-            createGamesFromPlatforms(game);
-        });
+        offset = offset + response.data.length;
+        if (response.data.length > 0) {
+            log.info(`Fetching data for ${response.data.length} games...`);
+            response.data.forEach((game: gameData) => {
+                createGamesFromPlatforms(game);
+            });
+            await setTimeout(() => {
+                fetchNewGames(offset);
+            }, 1000);
+        }
     } catch (error) {
         log.error(error.message);
     }
@@ -44,8 +50,7 @@ const createGamesFromPlatforms = (game: gameData) => {
     game.platforms.forEach(async (platform) => {
         const gameObj = buildGame(game, platform.name);
         try {
-            const newGame = await createGame(gameObj);
-            log.info(`Saved ${newGame.title} for ${newGame.gameConsole}`);
+            await createGame(gameObj);
         } catch (error) {
             log.error(error.message);
         }
