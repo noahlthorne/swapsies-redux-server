@@ -1,6 +1,6 @@
 export default {
     port: process.env.PORT,
-    host: "localhost",
+    host: process.env.HOST,
     dbUri: process.env.MONGO_URI,
     saltWorkFactor: 10,
     accessTokenTtl: "3hr",
