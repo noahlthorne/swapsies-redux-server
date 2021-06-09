@@ -16,7 +16,6 @@ export const createListingHandler = async (req: Request, res: Response) => {
 
 export const getGameListingsHandler = async (req: Request, res: Response) => {
     const gameId = get(req, "params.gameId");
-    const sessions = await findGameListings({ game: gameId });
-
-    return res.send(sessions);
+    const listings = await findGameListings({ game: gameId });
+    return res.send(listings);
 };
