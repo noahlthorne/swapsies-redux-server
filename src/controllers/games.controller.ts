@@ -15,7 +15,7 @@ export const createGameHandler = async (req: Request, res: Response) => {
 
 export const getGamesHandler = async (req: Request, res: Response) => {
     const games = await getGames();
-    return res.send(games);
+    return res.send({ games: games });
 };
 
 export const getGameHandler = async (req: Request, res: Response) => {
