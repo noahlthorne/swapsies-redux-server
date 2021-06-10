@@ -14,7 +14,7 @@ const host = config.get("host") as string;
 const app = express();
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:4200",
     })
 );
 app.use(deserializeUser);
