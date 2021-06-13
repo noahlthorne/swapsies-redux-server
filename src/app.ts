@@ -22,12 +22,11 @@ app.use(deserializeUser);
 // Init Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(routes);
 
 app.listen(port, host, () => {
     log.info(`Server listening at http://${host}:${port}`);
 
     // Connect to database
     connectDB();
-
-    routes(app);
 });
