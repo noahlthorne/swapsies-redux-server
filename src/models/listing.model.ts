@@ -7,6 +7,7 @@ export interface ListingDocument extends Document {
     game: GameDocument["_id"];
     condition: String;
     status?: String;
+    image: String;
 }
 
 const ListingSchema: Schema = new Schema(
@@ -14,6 +15,7 @@ const ListingSchema: Schema = new Schema(
         user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         game: { type: mongoose.Schema.Types.ObjectId, ref: "Game" },
         condition: { type: String },
+        image: { type: String },
         status: { type: String, default: "available" },
     },
     { timestamps: true }
