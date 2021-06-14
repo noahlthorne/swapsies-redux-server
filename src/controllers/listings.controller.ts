@@ -5,13 +5,16 @@ import { createListing, findGameListings } from "../services/listing.service";
 export const createListingHandler = async (req: Request, res: Response) => {
     const userId = get(req, "user._id");
     const gameId = get(req, "params.gameId");
+    const image = get(req, "image");
+    console.log(req.body);
     const { condition } = req.body;
-    const listing = await createListing({
-        user: userId,
-        game: gameId,
-        condition,
-    });
-    res.send(listing);
+    // const listing = await createListing({
+    //     user: userId,
+    //     game: gameId,
+    //     image: image,
+    //     condition,
+    // });
+    // res.send(listing);
 };
 
 export const getGameListingsHandler = async (req: Request, res: Response) => {
