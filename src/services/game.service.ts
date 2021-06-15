@@ -9,8 +9,11 @@ export const createGame = async (input: DocumentDefinition<GameDocument>) => {
     }
 };
 
-export const getGames = async () => {
-    return Game.find({}).sort({ title: "desc" });
+export const getGames = async (pageSize: number, currentPage: number) => {
+    return Game.find({})
+        .skip(pageSize * (currentPage - 1))
+        .limit(pageSize)
+        .sort({ title: "desc" });
 };
 
 export const findGame = async (

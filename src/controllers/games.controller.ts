@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createGame, findGame, getGames } from "../services/game.service";
 import log from "../logger";
 import { get } from "lodash";
+import Game from "../models/game.model";
 
 export const createGameHandler = async (req: Request, res: Response) => {
     try {
@@ -14,8 +15,13 @@ export const createGameHandler = async (req: Request, res: Response) => {
 };
 
 export const getGamesHandler = async (req: Request, res: Response) => {
-    const games = await getGames();
-    return res.send({ games: games });
+    const pageSize: number = +req.query.pagesize!;
+    const currentPage: number = +req.query.currentpage!;
+    if (pageSize && currentPage) {
+        const games = await getGames(pageSize, currentPage);
+        return res.send({ games: games });
+    }
+    return res.sendStatus(404);
 };
 
 export const getGameHandler = async (req: Request, res: Response) => {
