@@ -1,3 +1,4 @@
+import { listenerCount } from "events";
 import { DocumentDefinition, FilterQuery, QueryOptions } from "mongoose";
 import Game, { GameDocument } from "../models/game.model";
 
@@ -9,11 +10,26 @@ export const createGame = async (input: DocumentDefinition<GameDocument>) => {
     }
 };
 
-export const getGames = async (pageSize: number, currentPage: number) => {
-    return Game.find({})
+export const getGames = (
+    gameConsole: string,
+    pageSize: number,
+    currentPage: number
+) => {
+    let games: any = [];
+    return Game.find({ gameConsole: gameConsole })
         .skip(pageSize * (currentPage - 1))
         .limit(pageSize)
-        .sort({ title: "desc" });
+        .sort({ title: "asc" })
+        .then((documents) => {
+            games = documents;
+            return Game.countDocuments({ gameConsole: gameConsole });
+        })
+        .then((count) => {
+            return {
+                games: games,
+                maxGames: count,
+            };
+        });
 };
 
 export const findGame = async (

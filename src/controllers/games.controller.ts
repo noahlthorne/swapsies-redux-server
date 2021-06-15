@@ -17,9 +17,13 @@ export const createGameHandler = async (req: Request, res: Response) => {
 export const getGamesHandler = async (req: Request, res: Response) => {
     const pageSize: number = +req.query.pagesize!;
     const currentPage: number = +req.query.currentpage!;
+    const gameConsole: string = req.query.gameconsole! as string;
     if (pageSize && currentPage) {
-        const games = await getGames(pageSize, currentPage);
-        return res.send({ games: games });
+        const gamesData = await getGames(gameConsole, pageSize, currentPage);
+        return res.send({
+            games: gamesData.games,
+            maxGames: gamesData.maxGames,
+        });
     }
     return res.sendStatus(404);
 };
