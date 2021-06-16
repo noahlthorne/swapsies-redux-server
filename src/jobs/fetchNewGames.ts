@@ -23,7 +23,7 @@ const fetchNewGames = async (offset: number = 0) => {
         // prettier-ignore
         "Authorization": config.get("igdbAuth") as string,
     };
-    const queryString = `fields id,name,platforms.name,summary,first_release_date,genres.name,aggregated_rating,cover.url; limit 50; offset ${offset}; where aggregated_rating > 90 & platforms = (48,49,130,6); sort first_release_date desc;`;
+    const queryString = `fields id,name,platforms.name,summary,first_release_date,genres.name,aggregated_rating,cover.url; limit 50; offset ${offset}; where aggregated_rating > 50 & platforms = (48,49,130,6); sort first_release_date desc;`;
 
     try {
         const response = await axios.post(
@@ -68,7 +68,11 @@ const buildGame = (game: gameData, platform: string) => {
             return genre.name;
         });
     }
-    const coverImage = `https:${cover.url}`.replace("t_thumb", "t_cover_big");
+    let coverImage =
+        "https://images.igdb.com/igdb/image/upload/t_cover_big/co1s0j.jpg";
+    if (cover.url) {
+        coverImage = `https:${cover.url}`.replace("t_thumb", "t_cover_big");
+    }
     const gameObj = {
         title: name,
         gameConsole: platform,
