@@ -29,7 +29,11 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
     });
 
     // send back refresh token and access token
-    return res.send({ accessToken, refreshToken });
+    return res.send({
+        accessToken,
+        refreshToken,
+        expiresIn: config.get("accessTokenTtl"),
+    });
 };
 
 export const invalidateUserSessionHandler = async (
