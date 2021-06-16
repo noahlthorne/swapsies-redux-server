@@ -24,7 +24,7 @@ export const createAccessToken = async ({
 }) => {
     const accessToken = sign(
         { ...user, session: session._id },
-        { expiresIn: config.get("accessTokenTtl") } // 15 minutes
+        { expiresIn: config.get("accessTokenTtl") } // 1 hour
     );
     return accessToken;
 };
