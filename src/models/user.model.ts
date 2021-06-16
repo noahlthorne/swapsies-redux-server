@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcrypt";
 import config from "config";
 
@@ -38,6 +39,8 @@ const UserSchema: Schema = new Schema(
     },
     { timestamps: true }
 );
+
+UserSchema.plugin(uniqueValidator);
 
 UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
     let user = this as UserDocument;
