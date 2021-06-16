@@ -7,13 +7,13 @@ export const createListingHandler = async (req: Request, res: Response) => {
     const gameId = get(req, "params.gameId");
     const image = get(req, "image");
     const { condition } = req.body;
-    // const listing = await createListing({
-    //     user: userId,
-    //     game: gameId,
-    //     image: image,
-    //     condition,
-    // });
-    res.send("test");
+    const listing = await createListing({
+        user: userId,
+        game: gameId,
+        image: image,
+        condition,
+    });
+    res.send(listing);
 };
 
 export const getGameListingsHandler = async (req: Request, res: Response) => {
