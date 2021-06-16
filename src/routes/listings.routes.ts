@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
 listingsRouter.post(
     "/api/games/:gameId/listings",
     [requiresUser, validateRequest(createListingSchema)],
-    multer({ storage: storage }).single("image"),
+    // multer({ storage: storage }).single("image"),
     createListingHandler
 );
 
