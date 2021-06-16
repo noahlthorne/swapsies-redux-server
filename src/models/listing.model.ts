@@ -12,8 +12,16 @@ export interface ListingDocument extends Document {
 
 const ListingSchema: Schema = new Schema(
     {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        game: { type: mongoose.Schema.Types.ObjectId, ref: "Game" },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+        game: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Game",
+            required: true,
+        },
         condition: { type: String },
         image: { type: String },
         status: { type: String, default: "available" },
