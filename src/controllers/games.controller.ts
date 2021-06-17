@@ -18,8 +18,16 @@ export const getGamesHandler = async (req: Request, res: Response) => {
     const pageSize: number = +req.query.pagesize!;
     const currentPage: number = +req.query.currentpage!;
     const gameConsole: string = req.query.gameconsole! as string;
+    const sortBy: string = req.query.sortby! as string;
+    const orderBy: string = req.query.orderby! as string;
     if (pageSize && currentPage) {
-        const gamesData = await getGames(gameConsole, pageSize, currentPage);
+        const gamesData = await getGames({
+            gameConsole: gameConsole,
+            pageSize: pageSize,
+            currentPage: currentPage,
+            sortBy: sortBy,
+            orderBy: orderBy,
+        });
         return res.send({
             games: gamesData.games,
             maxGames: gamesData.maxGames,

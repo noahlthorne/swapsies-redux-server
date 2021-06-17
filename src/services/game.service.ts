@@ -10,16 +10,24 @@ export const createGame = async (input: DocumentDefinition<GameDocument>) => {
     }
 };
 
-export const getGames = (
-    gameConsole: string,
-    pageSize: number,
-    currentPage: number
-) => {
+export const getGames = ({
+    gameConsole,
+    pageSize,
+    currentPage,
+    sortBy,
+    orderBy,
+}: {
+    gameConsole: string;
+    pageSize: number;
+    currentPage: number;
+    sortBy: string;
+    orderBy: string;
+}) => {
     let games: any = [];
     return Game.find({ gameConsole: gameConsole })
         .skip(pageSize * (currentPage - 1))
         .limit(pageSize)
-        .sort({ title: "asc" })
+        .sort({ [sortBy]: [orderBy] })
         .then((documents) => {
             games = documents;
             return Game.countDocuments({ gameConsole: gameConsole });
