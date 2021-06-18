@@ -33,6 +33,7 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
         accessToken,
         refreshToken,
         expiresIn: config.get("accessTokenTtl"),
+        userId: user._id,
     });
 };
 
