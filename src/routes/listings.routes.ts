@@ -6,7 +6,6 @@ import {
 import { createListingSchema } from "../schemas/listing.schema";
 import { validateRequest, requiresUser } from "../middleware";
 import multer from "multer";
-import { Request, Response, NextFunction } from "express";
 
 const listingsRouter = Router();
 
@@ -36,8 +35,11 @@ const storage = multer.diskStorage({
 // Create a listing
 listingsRouter.post(
     "/api/games/:gameId/listings",
-    [requiresUser, validateRequest(createListingSchema)],
-    // multer({ storage: storage }).single("image"),
+    [
+        requiresUser,
+        multer({ storage: storage }).single("image"),
+        validateRequest(createListingSchema),
+    ],
     createListingHandler
 );
 
