@@ -1,4 +1,3 @@
-import { listenerCount } from "events";
 import { DocumentDefinition, FilterQuery, QueryOptions } from "mongoose";
 import Game, { GameDocument } from "../models/game.model";
 
@@ -40,7 +39,7 @@ export const getGames = ({
         });
 };
 
-export const findGame = async (
+export const findGame = (
     query: FilterQuery<GameDocument>,
     options: QueryOptions = { lean: true }
 ) => {
