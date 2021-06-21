@@ -39,8 +39,14 @@ export const getGamesHandler = async (req: Request, res: Response) => {
 export const getGameHandler = async (req: Request, res: Response) => {
     const gameId = get(req, "params.gameId");
     try {
-        const game = await findGame({ _id: gameId });
-        return res.send(game);
+        const foundGame = await findGame({ _id: gameId });
+        if (!foundGame) return res.sendStatus(404);
+        return res.send({
+            game: {
+                ...foundGame,
+                id: foundGame._id,
+            },
+        });
     } catch (error) {
         return res.sendStatus(404);
     }
