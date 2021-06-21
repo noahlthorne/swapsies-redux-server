@@ -4,7 +4,6 @@ const payload = {
     body: object({
         condition: string().required("condition is required"),
         status: string(),
-        imagePath: string().required("image path is required"),
     }),
 };
 
