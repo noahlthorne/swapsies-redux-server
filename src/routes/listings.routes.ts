@@ -4,40 +4,15 @@ import {
     getGameListingsHandler,
 } from "../controllers/listings.controller";
 import { createListingSchema } from "../schemas/listing.schema";
-import { validateRequest, requiresUser } from "../middleware";
-import multer from "multer";
-import path from "path";
+import { validateRequest, requiresUser, extractFile } from "../middleware";
 
 const listingsRouter = Router();
-
-const MIME_TYPE_MAP = {
-    "image/png": "png",
-    "image/jpeg": "jpeg",
-    "image/jpg": "jpg",
-};
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const isValid =
-            MIME_TYPE_MAP[file.mimetype as keyof typeof MIME_TYPE_MAP];
-        let error: Error | null = new Error("Invalid mime type");
-        if (isValid) {
-            error = null;
-        }
-        cb(error, path.join(__dirname, "../images"));
-    },
-    filename: (req, file, cb) => {
-        const name = file.originalname.toLowerCase().split(" ").join("-");
-        const ext = MIME_TYPE_MAP[file.mimetype as keyof typeof MIME_TYPE_MAP];
-        cb(null, `${name}-${Date.now()}.${ext}`);
-    },
-});
 
 // Create a listing
 listingsRouter.post(
     "/api/games/:gameId/listings",
     requiresUser,
-    multer({ storage: storage }).single("image"),
+    extractFile,
     validateRequest(createListingSchema),
     createListingHandler
 );
