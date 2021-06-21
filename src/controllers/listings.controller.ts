@@ -3,17 +3,18 @@ import { get } from "lodash";
 import { createListing, findGameListings } from "../services/listing.service";
 
 export const createListingHandler = async (req: Request, res: Response) => {
+    const url = `${req.protocol}://${req.get("host")};`;
     const userId = get(req, "user._id");
     const gameId = get(req, "params.gameId");
-    const image = get(req, "image");
     const { condition } = req.body;
-    const listing = await createListing({
+    const createdListing = await createListing({
         user: userId,
         game: gameId,
-        image: image,
+        imagePath: `${url}/images/${req.file.filename}`,
         condition,
     });
-    res.send(listing);
+
+    res.send({ listing: createdListing });
 };
 
 export const getGameListingsHandler = async (req: Request, res: Response) => {
