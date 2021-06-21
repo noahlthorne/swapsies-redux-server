@@ -6,6 +6,7 @@ import {
 import { createListingSchema } from "../schemas/listing.schema";
 import { validateRequest, requiresUser } from "../middleware";
 import multer from "multer";
+import path from "path";
 
 const listingsRouter = Router();
 
@@ -23,7 +24,7 @@ const storage = multer.diskStorage({
         if (isValid) {
             error = null;
         }
-        cb(error, "images");
+        cb(error, path.join(__dirname, "../images"));
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLowerCase().split(" ").join("-");
@@ -35,11 +36,9 @@ const storage = multer.diskStorage({
 // Create a listing
 listingsRouter.post(
     "/api/games/:gameId/listings",
-    [
-        requiresUser,
-        multer({ storage: storage }).single("image"),
-        validateRequest(createListingSchema),
-    ],
+    requiresUser,
+    multer({ storage: storage }).single("image"),
+    validateRequest(createListingSchema),
     createListingHandler
 );
 
