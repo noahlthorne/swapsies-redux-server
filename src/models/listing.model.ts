@@ -7,7 +7,7 @@ export interface ListingDocument extends Document {
     game: GameDocument["_id"];
     condition: String;
     status?: String;
-    image: String;
+    imagePath: String;
 }
 
 const ListingSchema: Schema = new Schema(
@@ -23,7 +23,7 @@ const ListingSchema: Schema = new Schema(
             required: true,
         },
         condition: { type: String },
-        image: { type: String },
+        imagePath: { type: String, required: true },
         status: { type: String, default: "available" },
     },
     { timestamps: true }
