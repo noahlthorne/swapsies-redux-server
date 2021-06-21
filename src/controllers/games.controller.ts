@@ -10,7 +10,7 @@ export const createGameHandler = async (req: Request, res: Response) => {
         return res.send(game);
     } catch (error) {
         log.error(error);
-        return res.status(409).send(error.message);
+        return res.status(409).send({ message: "Conflict detected" });
     }
 };
 
@@ -33,14 +33,17 @@ export const getGamesHandler = async (req: Request, res: Response) => {
             maxGames: gamesData.maxGames,
         });
     }
-    return res.sendStatus(404);
+    return res.sendStatus(404).send({ message: "Fetching games failed!" });
 };
 
 export const getGameHandler = async (req: Request, res: Response) => {
     const gameId = get(req, "params.gameId");
     try {
         const foundGame = await findGame({ _id: gameId });
-        if (!foundGame) return res.sendStatus(404);
+        if (!foundGame) {
+            console.log("NO FOUND GAME!");
+            return res.sendStatus(404).send({ message: "Game not found!" });
+        }
         return res.send({
             game: {
                 ...foundGame,
@@ -48,6 +51,6 @@ export const getGameHandler = async (req: Request, res: Response) => {
             },
         });
     } catch (error) {
-        return res.sendStatus(404);
+        return res.sendStatus(404).send({ message: "Game not found!" });
     }
 };
