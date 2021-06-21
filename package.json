@@ -13,7 +13,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@types/lodash": "^4.14.170",
         "axios": "^0.21.1",
         "bcrypt": "^5.0.1",
         "config": "^3.3.6",
@@ -34,6 +33,7 @@
         "yup": "^0.32.9"
     },
     "devDependencies": {
+        "@types/lodash": "^4.14.170",
         "@types/bcrypt": "^5.0.0",
         "@types/config": "^0.0.38",
         "@types/cors": "^2.8.10",
