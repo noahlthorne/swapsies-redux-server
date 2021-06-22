@@ -9,7 +9,7 @@ import { deserializeUser } from "./middleware";
 import "./jobs/cronJobs";
 
 const port = config.get("port") as number;
-const host = config.get("host") as string;
+const host = config.get("host") as string | "0.0.0.0";
 
 const app = express();
 app.use(
@@ -26,7 +26,7 @@ app.use(routes);
 
 app.listen(port, host, () => {
     log.info(`Server listening at http://${host}:${port}`);
-
+    log.info(`Host is ${host}`);
     // Connect to database
     connectDB();
 });
