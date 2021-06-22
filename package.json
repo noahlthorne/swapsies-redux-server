@@ -5,7 +5,7 @@
     "main": "src/app.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node dist/app.js",
+        "start": "ts-node src/app.ts --host 0.0.0.0",
         "dev": "nodemon src/app.ts",
         "build": "tsc -p ."
     },
@@ -33,20 +33,20 @@
         "yup": "^0.32.9"
     },
     "devDependencies": {
-        "@types/lodash": "^4.14.170",
         "@types/bcrypt": "^5.0.0",
         "@types/config": "^0.0.38",
         "@types/cors": "^2.8.10",
         "@types/cron": "^1.7.2",
         "@types/express": "^4.17.11",
         "@types/jsonwebtoken": "^8.5.1",
+        "@types/lodash": "^4.14.170",
         "@types/mongoose-unique-validator": "^1.0.5",
         "@types/multer": "^1.4.5",
         "@types/node": "^15.3.0",
         "@types/node-cron": "^2.0.3",
         "@types/pino": "^6.3.8",
         "nodemon": "^2.0.7",
-        "ts-node": "^9.1.1",
-        "typescript": "^4.2.4"
+        "ts-node": "^10.0.0",
+        "typescript": "^4.3.4"
     }
 }
