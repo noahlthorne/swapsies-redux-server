@@ -1,1 +1,1 @@
-web:node app.js --host 0.0.0.0
+web:node dist/src/app.js --host 0.0.0.0
