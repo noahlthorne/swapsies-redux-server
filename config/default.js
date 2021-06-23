@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+module.exports = {
     port: process.env.PORT,
     host: process.env.HOST,
     dbUri: process.env.MONGO_URI,
