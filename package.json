@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "ts-node src/app.ts --host 0.0.0.0",
-        "start-prod": "node dist/src/app.js",
+        "start-prod": "node dist/app.js",
         "dev": "nodemon src/app.ts",
         "postinstall": "tsc"
     },
