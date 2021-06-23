@@ -5,7 +5,7 @@
     "main": "src/app.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node dist/src/src/app.js --host 0.0.0.0",
+        "start": "node dist/src/app.js --host 0.0.0.0",
         "dev": "nodemon src/app.ts",
         "build": "tsc -p ."
     },
