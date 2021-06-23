@@ -1,1 +1,1 @@
-web: npm start
+web: node dist/src/app.js --host 0.0.0.0
