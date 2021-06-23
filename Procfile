@@ -1,1 +1,1 @@
-web:node dist/src/app.js --host 0.0.0.0
+web: npm run start prod
