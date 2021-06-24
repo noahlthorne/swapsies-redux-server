@@ -17,12 +17,17 @@ export const findGameListings = async (
     query: FilterQuery<ListingDocument>,
     options: QueryOptions = { lean: true }
 ) => {
-    const listings = await Listing.find(query, {}, options);
-    const promises = listings.map(async (listing) => {
+    return await Listing.find(query, {}, options);
+};
+
+export const findListing = async (
+    query: FilterQuery<ListingDocument>,
+    options: QueryOptions = { lean: true }
+) => {
+    let listing = await Listing.findOne(query, {}, options);
+    if (listing) {
         listing.user = await findUser({ _id: listing.user });
         listing.game = await findGame({ _id: listing.game });
-        return listing;
-    });
-    const transformedListings = await Promise.all(promises);
-    return transformedListings;
+    }
+    return listing;
 };
