@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { get } from "lodash";
-import { createListing, findGameListings } from "../services/listing.service";
+import {
+    createListing,
+    findGameListings,
+    findListing,
+} from "../services/listing.service";
 
 export const createListingHandler = async (req: Request, res: Response) => {
     const url = `${req.protocol}://${req.get("host")};`;
@@ -26,5 +30,17 @@ export const getGameListingsHandler = async (req: Request, res: Response) => {
         return res.send({ listings: listings });
     } catch (error) {
         return res.status(404).send({ message: "Error fetching listings!" });
+    }
+};
+
+export const getListingHandler = async (req: Request, res: Response) => {
+    const listingId = get(req, "params.listingId");
+    try {
+        const listing = await findListing({ _id: listingId });
+        if (!listing)
+            return res.status(404).send({ message: "Listing not found!" });
+        return res.send(listing);
+    } catch (error) {
+        return res.status(404).send({ message: "Listing not found!" });
     }
 };
