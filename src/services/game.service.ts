@@ -26,12 +26,15 @@ export const getGames = async ({
 }) => {
     let games: any = [];
     if (search != "") {
-        games = await Game.find({
-            $text: { $search: search },
-            gameConsole: gameConsole,
-        })
+        games = await Game.find(
+            {
+                $text: { $search: search },
+                gameConsole: gameConsole,
+            },
+            { score: { $meta: "textScore" } }
+        )
             .limit(pageSize)
-            .sort({ [sortBy]: [orderBy] })
+            .sort({ score: { $meta: "textScore" } })
             .then((documents) => {
                 games = documents;
                 return Game.countDocuments({ gameConsole: gameConsole });
