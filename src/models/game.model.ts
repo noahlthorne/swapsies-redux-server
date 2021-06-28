@@ -41,8 +41,17 @@ const GameSchema: Schema = new Schema(
     { timestamps: true }
 );
 
-GameSchema.index({ gameConsole: 1, title: 1 }, { unique: true });
+GameSchema.index(
+    {
+        title: "text",
+        genres: "text",
+        description: "text",
+        rating: "text",
+    },
+    { collation: { locale: "en", strength: 1 } }
+);
 
+GameSchema.index({ gameConsole: 1, title: 1 }, { unique: true });
 const Game = mongoose.model<GameDocument>("Game", GameSchema);
 
 export default Game;
