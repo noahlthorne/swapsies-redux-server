@@ -40,9 +40,13 @@ const fetchNewGames = async (offset: number = 0) => {
             await setTimeout(() => {
                 fetchNewGames(offset);
             }, 1000);
+        } else {
+            log.info("Completed fetching new games");
+            return;
         }
     } catch (error) {
         log.error(error.message);
+        return;
     }
 };
 
@@ -61,7 +65,10 @@ const buildGame = (game: gameData, platform: string) => {
     const { name, summary, cover, aggregated_rating, first_release_date } =
         game;
     const milliseconds = first_release_date * 1000;
-    const releaseDate = new Date(milliseconds);
+    let releaseDate = new Date();
+    if (first_release_date) {
+        releaseDate = new Date(milliseconds);
+    }
     let genres: any = game.genres;
     if (genres) {
         genres = genres.map((genre: any) => {
@@ -70,7 +77,7 @@ const buildGame = (game: gameData, platform: string) => {
     }
     let coverImage =
         "https://images.igdb.com/igdb/image/upload/t_cover_big/co1s0j.jpg";
-    if (cover.url) {
+    if (cover) {
         coverImage = `https:${cover.url}`.replace("t_thumb", "t_cover_big");
     }
     const gameObj = {
