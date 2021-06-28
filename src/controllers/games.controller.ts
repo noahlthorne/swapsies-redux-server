@@ -20,6 +20,7 @@ export const getGamesHandler = async (req: Request, res: Response) => {
     const gameConsole: string = req.query.gameconsole! as string;
     const sortBy: string = req.query.sortby! as string;
     const orderBy: string = req.query.orderby! as string;
+    const search: string = req.query.search! as string;
     if (pageSize && currentPage) {
         const gamesData = await getGames({
             gameConsole: gameConsole,
@@ -27,6 +28,7 @@ export const getGamesHandler = async (req: Request, res: Response) => {
             currentPage: currentPage,
             sortBy: sortBy,
             orderBy: orderBy,
+            search: search,
         });
         return res.send({
             games: gamesData.games,
