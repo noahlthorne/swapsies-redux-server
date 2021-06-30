@@ -21,6 +21,7 @@ listingsRouter.post(
 // Get a games listings
 listingsRouter.get("/api/games/:gameId/listings", getGameListingsHandler);
 
+// Get a listing
 listingsRouter.get("/api/listings/:listingId", getListingHandler);
 
 export default listingsRouter;
