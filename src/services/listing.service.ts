@@ -20,6 +20,19 @@ export const findGameListings = async (
     return await Listing.find(query, {}, options);
 };
 
+export const findUsersListings = async (
+    query: FilterQuery<ListingDocument>,
+    options: QueryOptions = { lean: true }
+) => {
+    let listings = await Listing.find(query, {}, options);
+    const promises = listings.map(async (listing) => {
+        listing.game = await findGame({ _id: listing.game });
+        return listing;
+    });
+    const trasformedListings = await Promise.all(promises);
+    return trasformedListings;
+};
+
 export const findListing = async (
     query: FilterQuery<ListingDocument>,
     options: QueryOptions = { lean: true }
