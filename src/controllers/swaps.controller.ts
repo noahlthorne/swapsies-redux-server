@@ -8,3 +8,7 @@ export const getUserSwapsHandler = async (req: Request, res: Response) => {
 export const getListingSwapsHandler = async (req: Request, res: Response) => {
     console.log("get listing swaps");
 };
+
+export const createSwapHandler = async (req: Request, res: Response) => {
+    console.log("create swap");
+};
