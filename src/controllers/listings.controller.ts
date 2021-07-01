@@ -3,6 +3,7 @@ import { get } from "lodash";
 import {
     createListing,
     findGameListings,
+    findUsersListings,
     findListing,
 } from "../services/listing.service";
 
@@ -36,7 +37,7 @@ export const getGameListingsHandler = async (req: Request, res: Response) => {
 export const getUsersListingsHandler = async (req: Request, res: Response) => {
     const userId = get(req, "params.userId");
     try {
-        const listings = await findGameListings({ user: userId });
+        const listings = await findUsersListings({ user: userId });
         if (!listings)
             return res.status(404).send({ message: "Listings not found!" });
         return res.send({ listings: listings });
