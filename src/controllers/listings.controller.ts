@@ -33,6 +33,18 @@ export const getGameListingsHandler = async (req: Request, res: Response) => {
     }
 };
 
+export const getUsersListingsHandler = async (req: Request, res: Response) => {
+    const userId = get(req, "params.userId");
+    try {
+        const listings = await findGameListings({ user: userId });
+        if (!listings)
+            return res.status(404).send({ message: "Listings not found!" });
+        return res.send({ listings: listings });
+    } catch (error) {
+        return res.status(404).send({ message: "Error fetching listings!" });
+    }
+};
+
 export const getListingHandler = async (req: Request, res: Response) => {
     const listingId = get(req, "params.listingId");
     try {
