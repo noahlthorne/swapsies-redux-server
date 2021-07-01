@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
     createListingHandler,
     getGameListingsHandler,
+    getUsersListingsHandler,
     getListingHandler,
 } from "../controllers/listings.controller";
 import { createListingSchema } from "../schemas/listing.schema";
@@ -18,8 +19,11 @@ listingsRouter.post(
     createListingHandler
 );
 
-// Get a games listings
+// Get a game's listings
 listingsRouter.get("/api/games/:gameId/listings", getGameListingsHandler);
+
+// Get a user's listings
+listingsRouter.get("/api/users/:userId/listings", getUsersListingsHandler);
 
 // Get a listing
 listingsRouter.get("/api/listings/:listingId", getListingHandler);
