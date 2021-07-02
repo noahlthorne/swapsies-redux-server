@@ -9,6 +9,9 @@ export const sign = (object: Object, options?: jwt.SignOptions | undefined) => {
 
 export const decode = (token: string) => {
     try {
+        if (token == "undefined") {
+            return { valid: false, expired: false, decoded: null };
+        }
         const decoded = jwt.verify(token, privateKey);
         return { valid: true, expired: false, decoded };
     } catch (error) {
