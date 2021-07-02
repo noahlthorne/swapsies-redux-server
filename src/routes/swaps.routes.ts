@@ -9,7 +9,7 @@ import { validateRequest, requiresUser, extractFile } from "../middleware";
 const swapsRouter = Router();
 
 // Create a swap
-swapsRouter.post("/api/listings/:listingId/swaps", createSwapHandler);
+swapsRouter.post("/api/swaps", createSwapHandler);
 
 // Get a listing's swaps
 swapsRouter.get("/api/listings/:listingId/swaps", getListingSwapsHandler);
