@@ -1,24 +1,24 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { ListingDocument } from "./listing.model";
+import Listing, { ListingDocument, ListingSchema } from "./listing.model";
 
 export interface SwapDocument extends Document {
-    listingRequested: ListingDocument["_id"];
-    listingOffered: ListingDocument["_id"];
+    listingRequested: ListingDocument;
+    listingOffered: ListingDocument;
 }
 
 const SwapSchema: Schema = new Schema({
     listingRequested: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: ListingSchema,
         ref: "Listing",
         required: true,
     },
     listingOffered: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: ListingSchema,
         ref: "Listing",
         required: true,
     },
 });
 
-const Swap = mongoose.model<SwapDocument>("Swap", SwapSchema);
+const Swap = mongoose.model<any>("Swap", SwapSchema);
 
 export default Swap;
