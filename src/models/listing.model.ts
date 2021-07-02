@@ -10,7 +10,7 @@ export interface ListingDocument extends Document {
     imagePath: String;
 }
 
-const ListingSchema: Schema = new Schema(
+export const ListingSchema: Schema = new Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,

@@ -10,7 +10,7 @@ export interface GameDocument extends Document {
     releaseDate: Date;
 }
 
-const GameSchema: Schema = new Schema(
+export const GameSchema: Schema = new Schema(
     {
         title: {
             type: String,

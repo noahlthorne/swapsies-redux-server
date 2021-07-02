@@ -14,7 +14,7 @@ export interface UserDocument extends Document {
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const UserSchema: Schema = new Schema(
+export const UserSchema: Schema = new Schema(
     {
         firstName: {
             type: String,
