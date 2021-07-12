@@ -1,14 +1,38 @@
 import { DocumentDefinition, FilterQuery, QueryOptions } from "mongoose";
 import Listing, { ListingDocument } from "../models/listing.model";
+import Swap, { SwapDocument } from "../models/swap.model";
 import { findGame } from "./game.service";
+import { findListing } from "./listing.service";
 import { findUser } from "./user.service";
 
-export const getListings = async (
-    input: DocumentDefinition<ListingDocument>
-) => {
+export const createSwap = async (input: DocumentDefinition<SwapDocument>) => {
     try {
-        return await Listing.create(input);
+        console.log("INPUT!", input);
+        return await Swap.create(input);
     } catch (error) {
         throw new Error(error);
     }
+};
+
+export const findListingsSwaps = async (
+    query: FilterQuery<SwapDocument>,
+    options: QueryOptions = { lean: true }
+) => {
+    return await Swap.find(query, {}, options)
+        .populate({
+            path: "listingRequested",
+            model: "Listing",
+            populate: [
+                { path: "user", model: "User" },
+                { path: "game", model: "Game" },
+            ],
+        })
+        .populate({
+            path: "listingOffered",
+            model: "Listing",
+            populate: [
+                { path: "user", model: "User" },
+                { path: "game", model: "Game" },
+            ],
+        });
 };
