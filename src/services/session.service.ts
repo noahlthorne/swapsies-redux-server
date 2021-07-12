@@ -60,6 +60,5 @@ export const updateSession = async (
 };
 
 export const findSessions = async (query: FilterQuery<SessionDocument>) => {
-    console.log(query);
     return Session.find(query).lean();
 };
