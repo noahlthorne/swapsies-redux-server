@@ -43,7 +43,6 @@ export const getGameHandler = async (req: Request, res: Response) => {
     try {
         const foundGame = await findGame({ _id: gameId });
         if (!foundGame) {
-            console.log("NO FOUND GAME!");
             return res.sendStatus(404).send({ message: "Game not found!" });
         }
         return res.send({
