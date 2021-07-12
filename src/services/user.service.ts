@@ -11,7 +11,7 @@ export const createUser = async (input: DocumentDefinition<UserDocument>) => {
 };
 
 export const findUser = async (query: FilterQuery<UserDocument>) => {
-    return User.findOne(query).lean();
+    return User.findOne(query);
 };
 
 export const validatePassword = async ({
