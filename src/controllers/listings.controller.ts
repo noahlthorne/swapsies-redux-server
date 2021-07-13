@@ -6,16 +6,18 @@ import {
     findUsersListings,
     findListing,
 } from "../services/listing.service";
+import { upload, download } from "../middleware";
 
 export const createListingHandler = async (req: Request, res: Response) => {
-    const url = `${req.protocol}://${req.get("host")};`;
+    const file = req.file;
+    const uploadResult = await upload(file);
     const userId = get(req, "user._id");
     const gameId = get(req, "params.gameId");
     const { condition } = req.body;
     const createdListing = await createListing({
         user: userId,
         game: gameId,
-        imagePath: `${url}/images/${req.file.filename}`,
+        imagePath: uploadResult.Location,
         condition,
     });
 
@@ -50,6 +52,9 @@ export const getListingHandler = async (req: Request, res: Response) => {
     const listingId = get(req, "params.listingId");
     try {
         const listing = await findListing({ _id: listingId });
+        if (listing) {
+            const file = await download(listing.imagePath);
+        }
         if (!listing)
             return res.status(404).send({ message: "Listing not found!" });
         return res.send(listing);
