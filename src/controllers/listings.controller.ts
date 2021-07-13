@@ -17,7 +17,7 @@ export const createListingHandler = async (req: Request, res: Response) => {
     const createdListing = await createListing({
         user: userId,
         game: gameId,
-        imagePath: uploadResult.Location,
+        imagePath: uploadResult.Key,
         condition,
     });
 
