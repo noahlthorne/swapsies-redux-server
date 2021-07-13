@@ -32,5 +32,6 @@ export const download = (fileKey: string) => {
         Bucket: AwsBucketName,
         Key: fileKey,
     };
+
     return s3.getObject(downloadParams).createReadStream();
 };
