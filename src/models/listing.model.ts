@@ -5,9 +5,9 @@ import { GameDocument } from "./game.model";
 export interface ListingDocument extends Document {
     user: UserDocument["_id"];
     game: GameDocument["_id"];
-    condition: String;
-    status?: String;
-    imagePath: String;
+    condition: string;
+    status?: string;
+    imagePath: string;
 }
 
 export const ListingSchema: Schema = new Schema(
