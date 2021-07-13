@@ -9,7 +9,7 @@ module.exports = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     igdbAuth: process.env.IGDB_AUTHORIZATION,
-    AwsBucket: process.env.AWS_BUCKET_NAME,
+    AwsBucketName: process.env.AWS_BUCKET_NAME,
     AwsBucketRegion: process.env.AWS_BUCKET_REGION,
     AwsAccessKey: process.env.AWS_ACCESS_KEY,
     AwsSecretKey: process.env.AWS_SECRET_KEY,
