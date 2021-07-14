@@ -7,8 +7,26 @@ import { findUser } from "./user.service";
 
 export const createSwap = async (input: DocumentDefinition<SwapDocument>) => {
     try {
-        console.log("INPUT!", input);
-        return await Swap.create(input);
+        let newSwap = await Swap.create(input);
+        await newSwap
+            .populate({
+                path: "listingRequested",
+                model: "Listing",
+                populate: [
+                    { path: "user", model: "User" },
+                    { path: "game", model: "Game" },
+                ],
+            })
+            .populate({
+                path: "listingOffered",
+                model: "Listing",
+                populate: [
+                    { path: "user", model: "User" },
+                    { path: "game", model: "Game" },
+                ],
+            })
+            .execPopulate();
+        return newSwap;
     } catch (error) {
         throw new Error(error);
     }
