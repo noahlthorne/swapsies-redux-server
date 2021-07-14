@@ -38,13 +38,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(routes);
 
-//socket io
-const http = require("http").Server(app);
-export const io = require("socket.io")(http);
-
-app.listen(port, host, () => {
+const server = app.listen(port, host, () => {
     log.info(`Server listening at http://${host}:${port}`);
     log.info(`Host is ${host}`);
     // Connect to database
     connectDB();
+});
+
+// Socket IO
+const io = require("socket.io")(server, {
+    cors: {
+        origin: ["http://localhost:4200", "https://swapsies-3acb0.web.app"],
+    },
+});
+
+io.on("connection", (socket: any) => {
+    console.log("A user connected", socket.id);
 });
