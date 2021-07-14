@@ -38,6 +38,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(routes);
 
+//socket io
+const http = require("http").Server(app);
+export const io = require("socket.io")(http);
+
 app.listen(port, host, () => {
     log.info(`Server listening at http://${host}:${port}`);
     log.info(`Host is ${host}`);
