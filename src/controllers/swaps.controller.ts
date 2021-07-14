@@ -28,3 +28,10 @@ export const createSwapHandler = async (req: Request, res: Response) => {
         return res.status(404).send({ message: "Error saving swap" });
     }
 };
+
+export const getUserSwapRequestsHandler = async (
+    req: Request,
+    res: Response
+) => {
+    console.log("get user swaps");
+};
