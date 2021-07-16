@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcrypt";
 import config from "config";
+import { SwapDocument } from "./swap.model";
 
 export interface UserDocument extends Document {
     firstName: string;
@@ -9,6 +10,7 @@ export interface UserDocument extends Document {
     email: string;
     password: string;
     avatar: string;
+    swapRequests: SwapDocument["_id"][];
     createdAt: Date;
     updatedAt: Date;
     comparePassword(candidatePassword: string): Promise<boolean>;
@@ -36,6 +38,7 @@ export const UserSchema: Schema = new Schema(
         avatar: {
             type: String,
         },
+        swapRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     },
     { timestamps: true }
 );
