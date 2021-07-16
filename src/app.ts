@@ -53,5 +53,21 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket: any) => {
-    console.log("A user connected", socket.id);
+    socket.on("connect-user", (userId: string) => {
+        console.log(`User ${userId} connected...`);
+        socket.join(userId);
+    });
+
+    socket.on(
+        "swap-create",
+        ({
+            requesterId,
+            requestedId,
+        }: {
+            requesterId: string;
+            requestedId: string;
+        }) => {
+            socket.to(requestedId).emit("swap-notification", requestedId);
+        }
+    );
 });
